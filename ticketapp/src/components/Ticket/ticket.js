@@ -22,12 +22,19 @@ export default class ticket extends Component {
         // console.log(event.target.value);
         let mainCountry = event.target.value
         // console.log(this.state.countriesData[mainCountry]);
-        let mainCountryCities = this.state.countriesData[mainCountry]
-        // console.log(mainCountryCities);
-
-        this.setState({
-            mainCountryCities : mainCountryCities
-        })
+        if (mainCountry === '-1'){
+              this.setState({
+                mainCountryCities :[]
+              })
+        }else { 
+            let mainCountryCities = this.state.countriesData[mainCountry]
+            // console.log(mainCountryCities);
+    
+            this.setState({
+                mainCountryCities : mainCountryCities
+            })
+        }
+      
     }
   
   render() {
@@ -47,7 +54,7 @@ export default class ticket extends Component {
         </div>
         <div>
             <select className='countrySelect' onChange={this.selectHandler}>
-                <option className="option" value=" -1">please select country ...</option>
+                <option className="option" value=" -1 ">please select country ...</option>
                 <option className="option" value="Iran">Iran</option>
                 <option className="option" value="Turkey">Turkey</option>
                 <option className="option" value="Us">United State</option>
@@ -55,11 +62,15 @@ export default class ticket extends Component {
         </div>
         <div>
             <select className='citySelect'>
-               {this.state.mainCountryCities.length && this.state.mainCountryCities.map (city => 
+               {this.state.mainCountryCities.length ? this.state.mainCountryCities.map (city => 
                (
                 <option  value={city}> {city}</option>
+               ) ) :
+               (
+                <option  value="-1"> Please Select...</option>
                )
-                ) }
+            
+            }
             </select>
         </div>
         <div>
